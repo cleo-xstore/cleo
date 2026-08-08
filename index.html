@@ -83,7 +83,8 @@
 
         /* ================= SECCIÓN HERO ================= */
         .hero-wrapper {
-            background-color: #f6ded5; 
+            background-color: #f6ded5;
+            background-image: url('img/hero-bg.jpg'); 
             background-size: cover;
             background-position: center top;
             position: relative;
@@ -166,28 +167,35 @@
         }
 
         .logo {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--black);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
         }
 
-        nav {
-            display: flex;
-            gap: 30px;
+    nav {
+        display: flex;
+        gap: 30px;
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--black);
-            font-size: 15px;
-            font-weight: 800;
+    nav a {
+        text-decoration: none;
+        color: var(--white);
+        font-size: 15px;
+        font-weight: 800;
+        transition: color 0.3s ease;
         }
 
-        nav a:hover {
-            color: var(--brand-terracotta);
+    nav a:hover {
+    color: var(--brand-terracotta);
         }
+
+.main-header.is-white .logo,
+.main-header.is-white nav a {
+    color: var(--black);
+}
 
         /* ================= CONTENIDO DEL HERO ================= */
         .hero-content {
@@ -268,6 +276,8 @@
             /* Adapta el Menú Superior */
             .nav-container { flex-direction: column; gap: 10px; padding: 15px 20px; }
             nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+
+            .hero-wrapper {background-image: url('img/hero-bg-mobile.jpg'); background-position: center top;}
             
             /* Adapta los textos principales */
             .hero-content { padding: 0 20px; text-align: center; justify-content: center; }
