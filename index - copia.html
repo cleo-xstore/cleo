@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLEO - Ropa Deportiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ================= VARIABLES Y RESET ================= */
+        :root {
+            --black: #111;
+            --white: #fff;
+            --gray-light: #f5f5f5;
+            --text-dark: #333;
+            --brand-brown: #4a3024; 
+            --brand-terracotta: #c45d47; 
+            --border-yellow: #fce28b;
+            --border-pink: #f8a8bb;
+            --border-blue: #a0c4ff;
+            --border-purple: #cbb2ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--text-dark);
+            margin: 0; 
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .placeholder {
+            background-color: var(--gray-light);
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ================= 1. BARRA NEGRA SUPERIOR ================= */
+        .top-bar {
+            background-color: var(--black);
+            color: var(--white);
+            text-align: center;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 1002;
+        }
+
+        .top-bar-text {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .top-bar-text.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        /* ================= SECCIÓN HERO ================= */
+        .hero-wrapper {
+            background-color: #f6ded5;
+            background-image: url('img/hero-bg.jpg'); 
+            background-size: cover;
+            background-position: center top;
+            position: relative;
+            min-height: 115vh; 
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 60px;
+        }
+
+        /* ================= 2. BOTONES PÍLDORA ================= */
+        .top-pills-container {
+            text-align: center;
+            padding-top: 15px;    
+            padding-bottom: 10px; 
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 2; 
+        }
+
+        .pill-group {
+            display: flex;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 30px;
+        }
+
+        .pill-btn {
+            padding: 12px 30px;
+            font-size: 14px;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .pill-btn.active {
+            background-color: var(--brand-brown);
+            color: var(--white);
+            border-radius: 30px 0 0 30px;
+        }
+
+        .pill-btn.inactive {
+            background-color: var(--white);
+            color: var(--brand-brown);
+            border-radius: 0 30px 30px 0;
+        }
+
+        /* ================= 3. HEADER DINÁMICO ================= */
+        #header-placeholder {
+            width: 100%;
+            flex-shrink: 0; 
+        }
+
+        .main-header {
+            width: 100%;
+            z-index: 1000;
+            background-color: transparent; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6); 
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .main-header.is-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-color: transparent; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+        }
+
+        .main-header.is-white {
+            background-color: var(--white); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 800;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--brand-terracotta);
+        }
+
+        .main-header.is-white .logo,
+        .main-header.is-white nav a {
+            color: var(--black);
+        }
+
+        /* ================= CONTENIDO DEL HERO ================= */
+        .hero-content {
+            flex-grow: 1; 
+            display: flex;
+            align-items: center; 
+            padding: 0 60px;
+        }
+
+        .hero-text-left {
+            max-width: 500px;
+        }
+
+        .hero-text-left h1 {
+            font-size: 65px;
+            color: var(--brand-terracotta);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .no-wrap {
+            white-space: nowrap;
+        }
+
+        .hero-text-left p {
+            font-size: 18px;
+            color: var(--brand-terracotta);
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        /* ================= SECCIÓN TENDENCIAS ================= */
+        .promo-section { margin-bottom: 80px; margin-top: 40px; }
+        .section-title { text-align: center; font-size: 32px; font-weight: 900; color: var(--black); margin-bottom: 30px; }
+        .top-4-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; height: 380px; }
+        .colored-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 14px;
+            border-radius: 12px;
+            border-style: solid;
+            border-width: 8px;
+            background-color: var(--gray-light);
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .top-4-grid .colored-box:nth-child(1) { border-color: var(--border-yellow); }
+        .top-4-grid .colored-box:nth-child(2) { border-color: var(--border-pink); }
+        .top-4-grid .colored-box:nth-child(3) { border-color: var(--border-blue); }
+        .top-4-grid .colored-box:nth-child(4) { border-color: var(--border-purple); }
+        .box-short { background-image: url('img/short.jpg'); }
+        .box-blusa { background-image: url('img/blusa.jpg'); }
+        .box-pantalon { background-image: url('img/pantalon.jpg'); }
+        .box-conjunto { background-image: url('img/conjunto.jpg'); }
+
+        .category-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 14px 0;
+            font-size: 20px;
+            font-weight: 900;
+            text-align: center;
+            color: var(--black);
+            background: rgba(255, 255, 255, 0.55);
+        }
+        .top-4-grid .colored-box:nth-child(1) .category-label { background: rgba(252, 226, 139, 0.85); }
+        .top-4-grid .colored-box:nth-child(2) .category-label { background: rgba(248, 168, 187, 0.85); }
+        .top-4-grid .colored-box:nth-child(3) .category-label { background: rgba(160, 196, 255, 0.85); }
+        .top-4-grid .colored-box:nth-child(4) .category-label { background: rgba(203, 178, 255, 0.85); }
+
+        .bottom-split { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; }
+        .large-left { height: 450px; border-color: var(--border-pink); }
+        .right-trending h2 { font-size: 32px; color: var(--brand-terracotta); margin-bottom: 25px; font-weight: 900; }
+        .trending-products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .product { text-align: center; display: flex; flex-direction: column; }
+        .product .img-box { height: 220px; margin-bottom: 15px; border-radius: 8px; overflow: hidden; border: none; background-color: var(--gray-light); }
+        .product-name { font-size: 14px; font-weight: 800; margin-bottom: 5px; height: 40px; overflow: hidden; }
+        .stars { color: #ffb800; font-size: 14px; margin-bottom: 5px; letter-spacing: 2px; }
+        .price { font-size: 14px; font-weight: 900; margin-bottom: 15px; }
+        .btn-comprar { color: rgb(207, 58, 82); background: rgba(224, 138, 151, 0.31); border: none; padding: 12px; font-size: 15px; font-weight: 800; border-radius: 12px; cursor: pointer; width: 100%; margin-top: auto; transition: background 0.3s ease; }
+        .btn-comprar:hover { background: rgba(224, 138, 151, 0.45); }
+        
+        /* ================= SECCIÓN CATÁLOGO ================= */
+        .catalog-section { margin-bottom: 80px; }
+        .catalog-section h2 { text-align: center; font-size: 36px; font-weight: 900; margin-bottom: 50px; color: var(--brand-terracotta); }
+        .catalog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px 20px; }
+        .catalog-grid .product .img-box { height: 320px; border: 2px dashed #ccc; }
+
+
+        /* ==================================================== */
+        /*                 DISEÑO RESPONSIVE                    */
+        /* ==================================================== */
+        
+        /* Tablets y Pantallas Medianas (Hasta 1024px) */
+        @media (max-width: 1024px) {
+            .hero-text-left h1 { font-size: 50px; }
+            .bottom-split { grid-template-columns: 1fr; } /* Apila la imagen grande y las tendencias */
+            .large-left { height: 350px; }
+            .trending-products { grid-template-columns: repeat(4, 1fr); }
+            .catalog-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Celulares y Tablets pequeñas (Hasta 768px) */
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            
+            /* Adapta el Menú Superior */
+            .nav-container { flex-direction: column; gap: 10px; padding: 15px 20px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+
+            /* Imagen de fondo del hero solo para mobile */
+            .hero-wrapper {
+                background-image: url('img/hero-bg-mobile.jpg');
+                background-position: center top;
+                overflow: hidden;
+            }
+
+            /* Degradado oscuro detrás del texto para que se lea bien */
+            .hero-wrapper::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 55%;
+                background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+                z-index: 1;
+                pointer-events: none;
+            }
+
+            /* Adapta los textos principales */
+            .hero-content { padding: 0 20px; text-align: center; justify-content: center; position: relative; z-index: 2; }
+            .hero-text-left { margin: 0 auto; }
+            .hero-text-left h1,
+            .hero-text-left p {
+                color: white;
+                text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            }
+            .hero-text-left h1 { font-size: 42px; }
+            .no-wrap { white-space: normal; } /* Permite que el texto baje de línea */
+
+            /* Logo y nav en negro solo en mobile */
+            .logo,
+            nav a {
+                color: var(--black);
+            }
+            
+            /* Adapta las grillas de imágenes - 2x2 cuadrado, más grande */
+            .top-4-grid { grid-template-columns: repeat(2, 1fr); height: auto; gap: 15px; }
+            .colored-box { aspect-ratio: 1 / 1; height: auto; }
+            .category-label { font-size: 18px; padding: 12px 0; }
+            .large-left { height: 250px; }
+            
+            /* 2 productos por fila para que se vea claro */
+            .trending-products { grid-template-columns: repeat(2, 1fr); }
+            .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 15px; }
+            .catalog-grid .product .img-box { height: 220px; }
+        }
+
+        /* Celulares Pequeños (Hasta 480px) */
+        @media (max-width: 480px) {
+            .top-bar { font-size: 11px; padding: 0 10px; }
+            .pill-btn { padding: 10px 20px; font-size: 12px; }
+            
+            .hero-text-left h1 { font-size: 34px; }
+            .hero-text-left p { font-size: 16px; }
+            
+            /* Ajustes finos a los productos en celular */
+            .product .img-box { height: 180px; }
+            .catalog-grid .product .img-box { height: 180px; }
+            .product-name { font-size: 13px; }
+            .btn-comprar { padding: 10px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. BARRA NEGRA SUPERIOR -->
+    <div class="top-bar">
+        <span class="top-bar-text active">Lanzamiento oficial | Envío gratis a Lima</span>
+        <span class="top-bar-text">✓ Pagas al recibir</span>
+        <span class="top-bar-text">Entrega rápida — Máx. 3 días</span>
+    </div>
+
+    <!-- IMAGEN DE FONDO -->
+    <div class="hero-wrapper" id="heroWrapper">
+        
+        <!-- 2. BOTONES PÍLDORA -->
+        <div class="top-pills-container">
+            <div class="pill-group">
+                <button class="pill-btn active">Deportiva Mujer</button>
+                <button class="pill-btn inactive">Deportiva Hombre</button>
+            </div>
+        </div>
+
+        <!-- 3. CONTENEDOR 'MOLDE' PARA EVITAR SALTO DE TEXTO -->
+        <div id="header-placeholder">
+            <header class="main-header" id="mainHeader">
+                <div class="nav-container">
+                    <div class="logo">CLEO</div>
+                    <nav>
+                        <a href="#">Nuevo</a>
+                        <a href="#">Los más vendidos</a>
+                        <a href="#">Acerca de</a>
+                    </nav>
+                </div>
+            </header>
+        </div>
+
+        <!-- TEXTO DEL HERO -->
+        <div class="hero-content">
+            <div class="hero-text-left">
+                <h1>Estilo Fresco,<br><span class="no-wrap">y Ajuste Perfecto</span></h1>
+                <p>Diseñada con tela transpirable que se mueve contigo en cada entrenamiento.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN TENDENCIAS -->
+    <section class="promo-section container">
+        <h2 class="section-title">Encuentra Tu Estilo</h2>
+        <div class="top-4-grid">
+            <div class="colored-box box-short"><span class="category-label">Short</span></div>
+            <div class="colored-box box-blusa"><span class="category-label">Blusa</span></div>
+            <div class="colored-box box-pantalon"><span class="category-label">Pantalón</span></div>
+            <div class="colored-box box-conjunto"><span class="category-label">Conjunto</span></div>
+        </div>
+        <div class="bottom-split">
+            <div class="colored-box large-left">Tu imagen grande aquí</div>
+            <div class="right-trending">
+                <h2>Vale la pena la publicidad</h2>
+                <div class="trending-products">
+                    <div class="product"><div class="img-box placeholder">Imagen</div><div class="product-name">Top Deportivo</div><div class="stars">★★★★★</div><div class="price">27.16 S/</div><button class="btn-comprar"><span>Agregar</span></button></div>
+                    <div class="product"><div class="img-box placeholder">Imagen</div><div class="product-name">Leggins Ajuste</div><div class="stars">★★★★★</div><div class="price">20.36 S/</div><button class="btn-comprar"><span>Agregar</span></button></div>
+                    <div class="product"><div class="img-box placeholder">Imagen</div><div class="product-name">Casaca Ligera</div><div class="stars">★★★★★</div><div class="price">20.36 S/</div><button class="btn-comprar"><span>Agregar</span></button></div>
+                    <div class="product"><div class="img-box placeholder">Imagen</div><div class="product-name">Short Transpirable</div><div class="stars">★★★★★</div><div class="price">37.36 S/</div><button class="btn-comprar"><span>Agregar</span></button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CATÁLOGO -->
+    <section class="catalog-section container">
+        <h2>Más Estilos Para Ti</h2>
+        <div class="catalog-grid" id="catalog-container"></div>
+    </section>
+
+    <script>
+        // Transición de barra negra superior
+        const texts = document.querySelectorAll('.top-bar-text');
+        let currentIndex = 0;
+        setInterval(() => {
+            texts[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % texts.length;
+            texts[currentIndex].classList.add('active');
+        }, 5000); 
+
+        // ==========================================
+        // LA SOLUCIÓN AL "SALTO" (Con el molde)
+        // ==========================================
+        const header = document.getElementById('mainHeader');
+        const placeholder = document.getElementById('header-placeholder');
+        const heroWrapper = document.getElementById('heroWrapper');
+
+        const ajustarAlturaMolde = () => {
+            if(!header.classList.contains('is-fixed')) {
+                placeholder.style.height = header.offsetHeight + 'px';
+            }
+        };
+        
+        ajustarAlturaMolde();
+        
+        // Al girar el celular o redimensionar, recalcula la altura
+        window.addEventListener('resize', ajustarAlturaMolde);
+
+        window.addEventListener('scroll', () => {
+            const placeholderRect = placeholder.getBoundingClientRect();
+            
+            if (placeholderRect.top <= 0) {
+                header.classList.add('is-fixed'); 
+            } else {
+                header.classList.remove('is-fixed'); 
+            }
+
+            const heroBottom = heroWrapper.getBoundingClientRect().bottom;
+            const headerBottom = header.getBoundingClientRect().bottom;
+
+            if (heroBottom <= headerBottom) {
+                header.classList.add('is-white');
+            } else {
+                header.classList.remove('is-white');
+            }
+        });
+
+        // Generar 16 productos de prueba
+        const catalogContainer = document.getElementById('catalog-container');
+        for(let i = 1; i <= 16; i++) {
+            catalogContainer.innerHTML += `
+                <div class="product">
+                    <div class="img-box placeholder">Imagen ${i}</div>
+                    <div class="product-name">Prenda Deportiva ${i}</div>
+                    <div class="price">50.00 S/</div>
+                    <button class="btn-comprar"><span>Agregar</span></button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
