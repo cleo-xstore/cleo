@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de - CLEO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ================= VARIABLES Y RESET ================= */
+        :root {
+            --black: #111;
+            --white: #fff;
+            --gray-light: #f5f5f5;
+            --text-dark: #333;
+            --brand-brown: #4a3024; 
+            --brand-terracotta: #c45d47; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ================= 1. BARRA NEGRA SUPERIOR ================= */
+        .top-bar {
+            background-color: var(--black);
+            color: var(--white);
+            text-align: center;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* ================= CONTENEDOR CON DEGRADADO ================= */
+        .hero-gradient-wrapper {
+            background: linear-gradient(to bottom, #eeb9a6 0%, #f6ded5 55%, #ffffff 100%);
+        }
+
+        /* ================= BOTONES PÍLDORA ================= */
+        .top-pills-container {
+            text-align: center;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pill-group {
+            display: flex;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 30px;
+        }
+
+        .pill-btn {
+            padding: 12px 30px;
+            font-size: 14px;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .pill-btn.active {
+            background-color: var(--brand-brown);
+            color: var(--white);
+            border-radius: 30px 0 0 30px;
+        }
+
+        .pill-btn.inactive {
+            background-color: var(--gray-light);
+            color: var(--brand-brown);
+            border-radius: 0 30px 30px 0;
+        }
+
+        /* ================= HEADER ================= */
+        .main-header {
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 800;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--brand-terracotta);
+        }
+
+        /* ================= HERO SIMPLE ================= */
+        .about-hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .about-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--brand-terracotta);
+            margin-bottom: 15px;
+        }
+
+        .about-hero p {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-brown);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ================= SECCIONES DE CONTENIDO ================= */
+        .about-section {
+            padding: 60px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-section h2 {
+            font-size: 30px;
+            font-weight: 900;
+            color: var(--brand-terracotta);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .about-section p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .about-section.alt {
+            background-color: var(--gray-light);
+            max-width: 100%;
+            padding: 60px 40px;
+        }
+
+        .about-section.alt .inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ================= IMAGEN PLACEHOLDER ================= */
+        .about-img-box {
+            width: 100%;
+            max-width: 800px;
+            height: 350px;
+            margin: 40px auto 0;
+            border-radius: 12px;
+            background-color: var(--gray-light);
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 14px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* ================= CTA FINAL ================= */
+        .about-cta {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .about-cta h2 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            color: var(--black);
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--brand-brown);
+            color: var(--white);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 15px;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            background-color: var(--brand-terracotta);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 10px; padding: 15px 20px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .about-hero h1 { font-size: 34px; }
+            .about-hero p { font-size: 16px; }
+            .about-section h2 { font-size: 24px; }
+            .about-section p { font-size: 16px; }
+            .about-img-box { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. BARRA NEGRA SUPERIOR -->
+    <div class="top-bar">
+        Lanzamiento oficial | Envío gratis a Lima
+    </div>
+
+    <!-- CONTENEDOR CON DEGRADADO: píldoras + header + hero -->
+    <div class="hero-gradient-wrapper">
+
+        <!-- BOTONES PÍLDORA -->
+        <div class="top-pills-container">
+            <div class="pill-group">
+                <button class="pill-btn active">Deportiva Mujer</button>
+                <button class="pill-btn inactive">Deportiva Hombre</button>
+            </div>
+        </div>
+
+        <!-- HEADER -->
+        <header class="main-header">
+            <div class="nav-container">
+                <a href="index.html" class="logo">CLEO</a>
+                <nav>
+                    <a href="index.html#nuevo">Nuevo</a>
+                    <a href="index.html#mas-vendidos">Los más vendidos</a>
+                    <a href="acerca_de.html" class="active">Acerca de</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- HERO SIMPLE -->
+        <section class="about-hero">
+            <h1>Sobre Cleo</h1>
+            <p>Una marca hecha con pasión por el fitness, pensada para acompañarte en cada entrenamiento.</p>
+        </section>
+
+    </div>
+
+    <!-- NUESTRA HISTORIA -->
+    <section class="about-section container">
+        <h2>Nuestra historia</h2>
+        <p>Cleo nació de una idea simple: dos novios apasionados por el gimnasio que encontraron en la ropa deportiva una forma de vivir lo que más les gusta. Lo que empezó como una afición se convirtió en un proyecto compartido, con la meta de ofrecer algo en lo que realmente creemos.</p>
+        <div class="about-img-box">Imagen</div>
+    </section>
+
+    <!-- LO QUE BUSCAMOS -->
+    <section class="about-section alt">
+        <div class="inner">
+            <h2>Lo que buscamos</h2>
+            <p>En Cleo creemos que ir al gimnasio no debería significar elegir entre comodidad y estilo. Por eso seleccionamos prendas elegantes y cómodas, pensadas para acompañarte en cada entrenamiento sin sacrificar diseño. Aquí no compras solo ropa, compras calidad.</p>
+        </div>
+    </section>
+
+    <!-- NUESTRO COMPROMISO -->
+    <section class="about-section container">
+        <h2>Nuestro compromiso</h2>
+        <p>El cliente siempre va primero. Cada pedido, cada mensaje, cada entrega es una oportunidad para regalarte la mejor experiencia posible — porque cuando te sientes bien con lo que usas, entrenas mejor.</p>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="about-cta">
+        <h2>¿Listo para tu próximo entrenamiento?</h2>
+        <a href="index.html#mas-vendidos" class="btn-cta">Ver productos</a>
+    </section>
+
+</body>
+</html>
