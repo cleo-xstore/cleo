@@ -90,12 +90,29 @@
         }
 
         /* ================= HEADER ================= */
+        #header-placeholder-about {
+            width: 100%;
+            flex-shrink: 0;
+        }
+
         .main-header {
             width: 100%;
             border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-            position: sticky;
-            top: 0;
             z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .main-header.is-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-color: transparent;
+        }
+
+        .main-header.is-white {
+            background-color: var(--white);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border-color: transparent;
         }
 
         .nav-container {
@@ -112,6 +129,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         nav {
@@ -129,6 +147,16 @@
 
         nav a:hover,
         nav a.active {
+            color: var(--brand-terracotta);
+        }
+
+        .main-header.is-white .logo,
+        .main-header.is-white nav a {
+            color: var(--black);
+        }
+
+        .main-header.is-white nav a:hover,
+        .main-header.is-white nav a.active {
             color: var(--brand-terracotta);
         }
 
@@ -264,7 +292,7 @@
     </div>
 
     <!-- CONTENEDOR CON DEGRADADO: píldoras + header + hero -->
-    <div class="hero-gradient-wrapper">
+    <div class="hero-gradient-wrapper" id="heroGradientWrapper">
 
         <!-- BOTONES PÍLDORA -->
         <div class="top-pills-container">
@@ -275,16 +303,18 @@
         </div>
 
         <!-- HEADER -->
-        <header class="main-header">
-            <div class="nav-container">
-                <a href="index.html" class="logo">CLEO</a>
-                <nav>
-                    <a href="index.html#mas-vendidos">Tendencias</a>
-                    <a href="index.html#nuevo">Nuevo</a>
-                    <a href="acerca_de.html" class="active">Acerca de</a>
-                </nav>
-            </div>
-        </header>
+        <div id="header-placeholder-about">
+            <header class="main-header" id="mainHeaderAbout">
+                <div class="nav-container">
+                    <a href="index.html" class="logo">CLEO</a>
+                    <nav>
+                        <a href="index.html#nuevo">Nuevo</a>
+                        <a href="index.html#mas-vendidos">Los más vendidos</a>
+                        <a href="acerca_de.html" class="active">Acerca de</a>
+                    </nav>
+                </div>
+            </header>
+        </div>
 
         <!-- HERO SIMPLE -->
         <section class="about-hero">
@@ -320,6 +350,41 @@
         <h2>¿Listo para tu próximo entrenamiento?</h2>
         <a href="index.html#mas-vendidos" class="btn-cta">Ver productos</a>
     </section>
+
+    <script>
+        // Header fijo con "molde" para evitar salto, igual que en el index
+        const headerAbout = document.getElementById('mainHeaderAbout');
+        const placeholderAbout = document.getElementById('header-placeholder-about');
+        const heroGradientWrapper = document.getElementById('heroGradientWrapper');
+
+        const ajustarAlturaMoldeAbout = () => {
+            if (!headerAbout.classList.contains('is-fixed')) {
+                placeholderAbout.style.height = headerAbout.offsetHeight + 'px';
+            }
+        };
+
+        ajustarAlturaMoldeAbout();
+        window.addEventListener('resize', ajustarAlturaMoldeAbout);
+
+        window.addEventListener('scroll', () => {
+            const placeholderRect = placeholderAbout.getBoundingClientRect();
+
+            if (placeholderRect.top <= 0) {
+                headerAbout.classList.add('is-fixed');
+            } else {
+                headerAbout.classList.remove('is-fixed');
+            }
+
+            const wrapperBottom = heroGradientWrapper.getBoundingClientRect().bottom;
+            const headerBottom = headerAbout.getBoundingClientRect().bottom;
+
+            if (wrapperBottom <= headerBottom) {
+                headerAbout.classList.add('is-white');
+            } else {
+                headerAbout.classList.remove('is-white');
+            }
+        });
+    </script>
 
 </body>
 </html>
